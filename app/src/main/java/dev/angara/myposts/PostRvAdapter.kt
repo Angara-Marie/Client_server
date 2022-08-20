@@ -1,5 +1,6 @@
 package dev.angara.myposts
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -13,21 +14,30 @@ class PostRvAdapter (var postList: List<Post>): RecyclerView.Adapter<PostViewHol
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         var currentPost = postList.get(position)
-//        with(holder.binding){
-        val postBinding=holder.binding
-        postBinding.tvUserId.text = currentPost.userId.toString()
-        postBinding.tvId.text = currentPost.id.toString()
-        postBinding.tvTitle.text = currentPost.title
-        postBinding.tvBody.text = currentPost.body
+        with(holder.binding) {
+            val postBinding = holder.binding
+            holder.binding.tvUserId.text = currentPost.userId.toString()
+            tvId.text = currentPost.id.toString()
+            tvTitle.text = currentPost.title
+            tvBody.text = currentPost.body
+
+            var context = holder.itemView.context
+            holder.binding.cvPosts.setOnClickListener {
+                val intent = Intent(context, CommentsActivity::class.java)
+                intent.putExtra("POST_ID", currentPost.id)
+                context.startActivity(intent)
+            }
 
 
+        }
     }
-
     override fun getItemCount(): Int {
         return postList.size
 
-    }
+
 }
-class PostViewHolder(var binding: PostListItemBinding):RecyclerView.ViewHolder(binding.root){
+}
+class PostViewHolder(var binding: PostListItemBinding)
+    :RecyclerView.ViewHolder(binding.root){
 
 }
