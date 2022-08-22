@@ -13,7 +13,10 @@
         android:theme="@style/Theme.MyPosts">
         <activity
             android:name=".CommentsActivity"
-            android:exported="false" />
+            android:exported="false" >
+        <meta-data android:name="android.support.PARENT_ACTIVITY"
+            android:value=".MainActivity" />
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">
